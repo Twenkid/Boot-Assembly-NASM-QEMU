@@ -1,0 +1,1 @@
+"C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe" a1.obj /subsystem:windows /entry:WinMain /libpath:"S:\Program Files\Microsoft SDKs\Windows\v7.0\Lib\"  kernel32.lib user32.lib  /largeaddressaware: no
