@@ -1,7 +1,35 @@
 # Boot-Sector-Assembly-NASM-QEMU
 
+## 0. BAT
 ## 1. NASM_Mingw_ld_linker_asm_22-4-2016.txt
 ## 2. VirtualBox_NASM_cmd_16-5-2016.txt
+
+## 0. BAT
+
+0.1. Call __nasmpath.bat__, temporary set PATH environment variable:
+
+```
+nasmpath.bat
+@set path=B:\NASM;%path%
+@%comspec%
+```
+
+0.2. Call __link.bat__
+
+Call the assembler with the source - produces .obj file.
+
+```
+nasm -fwin32 a1.asm
+```
+
+0.3. Call __link.bat__
+
+Then link with the __Linker__ command.
+Set the appropriate paths to the VS linker (or another one) and to the SDK header files.
+
+link.bat <br>
+"C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe" a1.obj /subsystem:windows /entry:WinMain /libpath:"S:\Program Files\Microsoft SDKs\Windows\v7.0\Lib\"  kernel32.lib user32.lib  /largeaddressaware: no
+
 
 
 ### 1.  \NASM\NASM_Mingw_ld_linker_asm_22-4-2016.txt
