@@ -1,7 +1,8 @@
 # Boot-Sector-Assembly-NASM-QEMU
 
-## 1. \NASM\NASM_Mingw_ld_linker_asm_22-4-2016.txt
-## 2. \NASM\VirtualBox_NASM_cmd_16-5-2016.txt
+## 1. NASM_Mingw_ld_linker_asm_22-4-2016.txt
+## 2. VirtualBox_NASM_cmd_16-5-2016.txt
+
 
 ### 1.  \NASM\NASM_Mingw_ld_linker_asm_22-4-2016.txt
 
