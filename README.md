@@ -1,7 +1,9 @@
 # Boot-Sector-Assembly-NASM-QEMU
 
-## \NASM\NASM_Mingw_ld_linker_asm_22-4-2016.txt
+## 1. \NASM\NASM_Mingw_ld_linker_asm_22-4-2016.txt
+## 2. \NASM\VirtualBox_NASM_cmd_16-5-2016.txt
 
+### 1.  \NASM\NASM_Mingw_ld_linker_asm_22-4-2016.txt
 
 NASM, Mingw, ld, Linker, Assembler ... x86, x64 ... 
 
@@ -138,4 +140,84 @@ c:\Program Files\Microsoft Visual Studio 10.0\VC\lib>"C:\Program Files\Microsoft
 
 
 "C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe" b:\nasm\a1.obj /OUT:b:\nasm\a1x.exe /VERBOSE:LIB  /subsystem:windows /libpath:"S:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib\"  /entry:WinMainCRTStartup
+```
+
+
+# 2. \NASM\VirtualBox_NASM_cmd_16-5-2016.txt
+```
+Operating System ... Boot sector ... VirtualBox Boot sequence and operation ... Init ... 
+//16-5-2016
+
+! install VirtualBox
+
+path to VirtualBox = R:\VirtualBox\
+
+! install NASM
+path to NASM = B:\NASM\
+
+! asm file = boot2.asm
+! bin format = "no offset, raw ..."
+
+//B:\NASM> nasm boot2.asm -o boot2.bin
+
+path to input = "boot2.asm" or "B:\NASM\boot2.asm"
+path to output = "boot2.bin" //"local directory"
+
+call nasm: nasm boot2.asm -o boot2.bin
+
+nasm boot2.asm -o boot2.bin
+
+! create VirtualBox virtual machine ... (example: 4 MB RAM, ... IDE ... - empty, ...)
+
+machine = "boot2"
+
+cd "path to VBoxManage" or call with the path ...
+
+
+R:\VirtualBox>VBoxManage storageattach  boot2 --storagectl IDE --port 1 --device 1 --medium none
+ 
+! delete attached devices:
+
+VBoxManage storageattach  boot2 --storagectl IDE --port 1 --device 1 --medium none
+
+! convert bin to virtual disk:
+
+R:\VirtualBox>VBoxManage.exe convertfromraw  B:\nasm\boot2.bin  b:\nasm\boot2f.dsk --format VMDK
+
+VBoxManage.exe convertfromraw  B:\nasm\boot2.bin  b:\nasm\boot2f.dsk --format VMDK
+
+//Converting from raw image file="B:\nasm\boot2.bin" to file="b:\nasm\boot2f.dsk".
+//..
+//Creating dynamic image with size 512 bytes (1MB)...
+
+! Attach to the machine
+
+R:\VirtualBox>VBoxManage storageattach  boot2 --storagectl IDE --port 1 --device 1 --type hdd --medium B:\nasm\boot4f.dsk
+
+VBoxManage storageattach  boot2 --storagectl IDE --port 1 --device 1 --type hdd --medium B:\nasm\boot2f.dsk
+
+! Start instance of the machine with gui
+
+R:\VirtualBox>VBoxManage  startvm  boot2 --type gui
+
+VBoxManage  startvm  boot2 --type gui
+
+//Waiting for VM "boot2" to power on...
+//VM "boot2" has been successfully started.
+
+! Turn off the machine:
+
+VBoxManage controlvm boot2 poweroff
+
+R:\VirtualBox>VBoxManage  controlvm boot2 poweroff
+
+"0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%"
+
+! Debug - read the registers:
+
+VBoxManage   debugvm boot2 getregisters all human-readable > regs2.txt
+
+R:\VirtualBox> VBoxManage  debugvm boot2 getregisters all human-readable > regs2.txt
+
+
 ```
